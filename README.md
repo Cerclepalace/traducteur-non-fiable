@@ -1,34 +1,63 @@
-# traducteur-non-fiable
+# DECHIFFRER — moteur G001 → G007
 
-## Déchiffrer — base générique G001 → G007
+Version actuelle du **Prompt Maître — Déchiffrer** : analyse structurale fondée sur les preuves.
 
-Le dépôt contient le premier moteur déterministe de classification des sept gabarits linguistiques définis pour la base de test :
+## Pipeline
 
-- **G001** — « Il écrit bien »
-- **G002** — « Il écrit mal »
-- **G003** — « Il est génie »
-- **G004** — « Il est mauvais »
-- **G005** — « On est d'accord, il… »
-- **G006** — « On est d'accord que… »
-- **G007** — « Il faut l'arrêter… »
+`COMPRENDRE → STRUCTURER → NORMALISER → EXTRAIRE → RELIER → HYPOTHÉSER → CONTREDIRE → TESTER → DÉCHIFFRER → VALIDER`
 
-Le moteur `dechiffrer_g001_g007.py` :
+### G001 — INGESTION
+Structure les observations : ID, source, contenu, contexte, date, auteur, relations, fiabilité.
 
-1. conserve le message original ;
-2. normalise la forme pour la comparaison ;
-3. classe les occurrences dans G001–G007 ;
-4. conserve les messages non classés comme `UNMATCHED` ;
-5. calcule les fréquences ;
-6. calcule les transitions observées entre gabarits.
+### G002 — NORMALISATION
+Normalise les formulations sans supprimer leur forme originale.
 
-### Principe de preuve
+### G003 — EXTRACTION
+Détecte répétitions, oppositions, causalités affirmées, jugements, présupposés, consensus, injonctions et contradictions.
 
-Une classification linguistique ne constitue pas une preuve d'un code caché, d'une intention ou d'une coordination. Toute hypothèse secondaire doit être testée séparément sur un corpus réel et, lorsque possible, comparée à un corpus témoin.
+### G004 — RECONSTRUCTION
+Relie les éléments par la chaîne :
 
-### Exécution
+`SOURCE → OBSERVATION → MOTIF → HYPOTHÈSE → CONSÉQUENCE`
 
-    python3 dechiffrer_g001_g007.py
+### G005 — CONTRADICTION
+Cherche activement les éléments qui peuvent invalider chaque hypothèse.
 
-Ou avec des messages réels :
+### G006 — DÉCHIFFREMENT
+Construit la structure minimale compatible avec les données sans inventer de signification cachée.
 
-    python3 dechiffrer_g001_g007.py "Il écrit bien" "On est d'accord, il écrit mal" "Il faut l'arrêter"
+### G007 — VALIDATION
+Associe chaque conclusion à son niveau de preuve et à un test de falsification.
+
+## Statuts
+
+- `VERIFIED`
+- `SUPPORTED`
+- `CONVERGENT`
+- `UNVERIFIED`
+- `CONTRADICTED`
+- `UNKNOWN`
+
+## Formulations de base
+
+- G001 — « Il écrit bien »
+- G002 — « Il écrit mal »
+- G003 — « Il est génie »
+- G004 — « Il est mauvais »
+- G005 — « On est d'accord, il… »
+- G006 — « On est d'accord que… »
+- G007 — « Il faut l'arrêter… »
+
+## Exécution
+
+```bash
+python3 dechiffrer_g001_g007.py
+```
+
+Corpus JSONL :
+
+```bash
+python3 dechiffrer_g001_g007.py --jsonl corpus.jsonl --output rapport.json
+```
+
+Le moteur ne transforme jamais une répétition en preuve de vérité, d'intention, de coordination ou de causalité.
