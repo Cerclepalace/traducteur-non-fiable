@@ -1,63 +1,27 @@
-# DECHIFFRER — moteur G001 → G007
+# VIDEO FACTORY V2
 
-Version actuelle du **Prompt Maître — Déchiffrer** : analyse structurale fondée sur les preuves.
+Pipeline : Script → Voice/Chatterbox → Audio Analysis → Alignment → Storyboard → Images → Animation → Subtitles → Montage → Render → QC.
 
-## Pipeline
+## Règles
+- VERIFIED uniquement après exécution avec preuve.
+- UNKNOWN si non mesuré.
+- Aucun mock présenté comme réel.
+- ElevenLabs interdit.
+- Chatterbox comme fournisseur vocal.
+- Les backends visuels réels doivent être branchés sur Qwen/WAN.
+- La validation finale produit un rapport machine.
 
-`COMPRENDRE → STRUCTURER → NORMALISER → EXTRAIRE → RELIER → HYPOTHÉSER → CONTREDIRE → TESTER → DÉCHIFFRER → VALIDER`
+## Contraintes
+- 4 s ≤ scène ≤ 8 s.
+- 60 s → 9 scènes, 9 images, 9 animations potentielles.
+- Arrondi half-up compatible avec Math.round.
+- Le nombre de scènes peut être élargi si nécessaire pour préserver scène ≤ 8 s.
+- Échec explicite si la durée est trop courte pour 8 scènes de 4 s.
 
-### G001 — INGESTION
-Structure les observations : ID, source, contenu, contexte, date, auteur, relations, fiabilité.
-
-### G002 — NORMALISATION
-Normalise les formulations sans supprimer leur forme originale.
-
-### G003 — EXTRACTION
-Détecte répétitions, oppositions, causalités affirmées, jugements, présupposés, consensus, injonctions et contradictions.
-
-### G004 — RECONSTRUCTION
-Relie les éléments par la chaîne :
-
-`SOURCE → OBSERVATION → MOTIF → HYPOTHÈSE → CONSÉQUENCE`
-
-### G005 — CONTRADICTION
-Cherche activement les éléments qui peuvent invalider chaque hypothèse.
-
-### G006 — DÉCHIFFREMENT
-Construit la structure minimale compatible avec les données sans inventer de signification cachée.
-
-### G007 — VALIDATION
-Associe chaque conclusion à son niveau de preuve et à un test de falsification.
-
-## Statuts
-
-- `VERIFIED`
-- `SUPPORTED`
-- `CONVERGENT`
-- `UNVERIFIED`
-- `CONTRADICTED`
-- `UNKNOWN`
-
-## Formulations de base
-
-- G001 — « Il écrit bien »
-- G002 — « Il écrit mal »
-- G003 — « Il est génie »
-- G004 — « Il est mauvais »
-- G005 — « On est d'accord, il… »
-- G006 — « On est d'accord que… »
-- G007 — « Il faut l'arrêter… »
-
-## Exécution
-
+## Validation
 ```bash
-python3 dechiffrer_g001_g007.py
+python3 tools/inventory/scan_repo.py
+python3 scripts/run_validation.py --scripts scripts/samples/s1.txt scripts/samples/s2.txt scripts/samples/s3.txt
 ```
 
-Corpus JSONL :
-
-```bash
-python3 dechiffrer_g001_g007.py --jsonl corpus.jsonl --output rapport.json
-```
-
-Le moteur ne transforme jamais une répétition en preuve de vérité, d'intention, de coordination ou de causalité.
+Le dépôt ne déclare pas la pipeline GO avant exécution réelle.
